@@ -39,8 +39,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BenMVVM">
+    <Reference Include="BenMVVM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\BenMvvm\lib\BenMVVM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
@@ -185,7 +187,12 @@
       <Name>Umehluko.Tools.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="..\packages\BenMvvm\lib\BenMVVM.dll">
+      <Link>BenMVVM.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Windows8Loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
