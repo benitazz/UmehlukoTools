@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="465bc71bbd714edb80b3621c3566850f" Name="Diagram1">
+        <EntityTypeShape EntityType="UmehlukoModel.MedicalItem" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="UmehlukoModel.MedicalItemType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UmehlukoModel.PractitionerType" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UmehlukoModel.Tariff" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UmehlukoModel.TariffBaseUnitCost" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UmehlukoModel.TariffType" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_Tariff_MedicalItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_Tariff_PractitionerTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_Tariff_TariffBaseUnitCostID" ManuallyRouted="false" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_Tariff_TariffTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_TariffBaseUnitCost_TariffTypeID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="UmehlukoModel.Publication" Width="1.5" PointX="5.375" PointY="0.625" />
+        <EntityTypeShape EntityType="UmehlukoModel.TariffBaseUnitCostType" Width="1.5" PointX="0.75" PointY="11.625" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_Publication_TariffTypeID" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_TariffBaseUnitCost_PublicationID" />
+        <AssociationConnector Association="UmehlukoModel.FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

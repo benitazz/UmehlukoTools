@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UmehlukoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MedicalItem">
+          <Key>
+            <PropertyRef Name="MedicalItemID" />
+          </Key>
+          <Property Name="MedicalItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TreatmentCodeID" Type="int" Nullable="false" />
+          <Property Name="NAPPICodeID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="MedicalItemTypeID" Type="int" Nullable="false" />
+          <Property Name="DefaultQuantity" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MinServiceIntervalDays" Type="decimal" Precision="7" Scale="2" />
+          <Property Name="AcuteMedicalAuthNeededTypeID" Type="int" Nullable="false" />
+          <Property Name="ChronicMedicalAuthNeededTypeID" Type="int" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+          <Property Name="IsAllowSameDayTreatment" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MedicalItemType">
+          <Key>
+            <PropertyRef Name="MedicalItemTypeID" />
+          </Key>
+          <Property Name="MedicalItemTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PractitionerType">
+          <Key>
+            <PropertyRef Name="PractitionerTypeID" />
+          </Key>
+          <Property Name="PractitionerTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="PracticeTypeCode" Type="varchar" MaxLength="12" />
+          <Property Name="MaxTreatmentDays" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="IsHospital" Type="tinyint" Nullable="false" />
+          <Property Name="IsDentist" Type="tinyint" Nullable="false" />
+          <Property Name="IsAmbulance" Type="tinyint" Nullable="false" />
+          <Property Name="IsSpecialist" Type="tinyint" Nullable="false" />
+          <Property Name="IsAnaesthetist" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="IsGP" Type="tinyint" Nullable="false" />
+          <Property Name="NRPLPracticeType" Type="varchar" MaxLength="12" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+          <Property Name="Groupings" Type="char" MaxLength="3" />
+          <Property Name="IsRequireMedReport" Type="bit" />
+        </EntityType>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="PublicationID" />
+          </Key>
+          <Property Name="PublicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PublicationNo" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="TariffTypeID" Type="int" Nullable="false" />
+          <Property Name="ValidFrom" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tariff">
+          <Key>
+            <PropertyRef Name="TariffID" />
+          </Key>
+          <Property Name="TariffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemCode" Type="varchar" MaxLength="50" />
+          <Property Name="ValidFrom" Type="datetime" Nullable="false" />
+          <Property Name="ValidTo" Type="datetime" Nullable="false" />
+          <Property Name="TariffBaseUnitCostID" Type="int" Nullable="false" />
+          <Property Name="RecommendedUnits" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="VatCodeID" Type="int" Nullable="false" />
+          <Property Name="PractitionerTypeID" Type="int" Nullable="false" />
+          <Property Name="TariffTypeID" Type="int" Nullable="false" />
+          <Property Name="MedicalItemID" Type="int" Nullable="false" />
+          <Property Name="SectionID" Type="int" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+          <Property Name="IsCopiedFromNRPL" Type="bit" />
+        </EntityType>
+        <EntityType Name="TariffBaseUnitCost">
+          <Key>
+            <PropertyRef Name="TariffBaseUnitCostID" />
+          </Key>
+          <Property Name="TariffBaseUnitCostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="PublicationID" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+          <Property Name="UnitTypeID" Type="int" Nullable="false" />
+          <Property Name="ValidFrom" Type="datetime" />
+          <Property Name="ValidTo" Type="datetime" />
+          <Property Name="TariffTypeID" Type="int" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+          <Property Name="TariffBaseUnitCostTypeId" Type="int" />
+          <Property Name="IsCopiedFromNRPL" Type="bit" />
+        </EntityType>
+        <EntityType Name="TariffBaseUnitCostType">
+          <Key>
+            <PropertyRef Name="TariffBaseUnitCostTypeId" />
+          </Key>
+          <Property Name="TariffBaseUnitCostTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="LastChangedBy" Type="nchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TariffType">
+          <Key>
+            <PropertyRef Name="TariffTypeID" />
+          </Key>
+          <Property Name="TariffTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="2048" />
+          <Property Name="IsBaseType" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="tinyint" Nullable="false" />
+          <Property Name="LastChangedBy" Type="varchar" MaxLength="30" />
+          <Property Name="LastChangedDate" Type="datetime" />
+          <Property Name="UploadDueDate" Type="date" />
+          <Property Name="NotificationDays" Type="smallint" />
+        </EntityType>
+        <Association Name="FK_Medical_Publication_TariffTypeID">
+          <End Role="TariffType" Type="Self.TariffType" Multiplicity="1" />
+          <End Role="Publication" Type="Self.Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_MedicalItemID">
+          <End Role="MedicalItem" Type="Self.MedicalItem" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalItem">
+              <PropertyRef Name="MedicalItemID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="MedicalItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_PractitionerTypeID">
+          <End Role="PractitionerType" Type="Self.PractitionerType" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PractitionerType">
+              <PropertyRef Name="PractitionerTypeID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="PractitionerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_TariffBaseUnitCostID">
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffBaseUnitCostID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="TariffBaseUnitCostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_TariffTypeID">
+          <End Role="TariffType" Type="Self.TariffType" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_PublicationID">
+          <End Role="Publication" Type="Self.Publication" Multiplicity="1" />
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationID" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="PublicationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType">
+          <End Role="TariffBaseUnitCostType" Type="Self.TariffBaseUnitCostType" Multiplicity="0..1" />
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffBaseUnitCostType">
+              <PropertyRef Name="TariffBaseUnitCostTypeId" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffBaseUnitCostTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_TariffTypeID">
+          <End Role="TariffType" Type="Self.TariffType" Multiplicity="1" />
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UmehlukoModelStoreContainer">
+          <EntitySet Name="MedicalItem" EntityType="Self.MedicalItem" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="MedicalItemType" EntityType="Self.MedicalItemType" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="PractitionerType" EntityType="Self.PractitionerType" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="Publication" EntityType="Self.Publication" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="Tariff" EntityType="Self.Tariff" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="TariffBaseUnitCost" EntityType="Self.TariffBaseUnitCost" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="TariffBaseUnitCostType" EntityType="Self.TariffBaseUnitCostType" Schema="Medical" store:Type="Tables" />
+          <EntitySet Name="TariffType" EntityType="Self.TariffType" Schema="Medical" store:Type="Tables" />
+          <AssociationSet Name="FK_Medical_Publication_TariffTypeID" Association="Self.FK_Medical_Publication_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffType" />
+            <End Role="Publication" EntitySet="Publication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_MedicalItemID" Association="Self.FK_Medical_Tariff_MedicalItemID">
+            <End Role="MedicalItem" EntitySet="MedicalItem" />
+            <End Role="Tariff" EntitySet="Tariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_PractitionerTypeID" Association="Self.FK_Medical_Tariff_PractitionerTypeID">
+            <End Role="PractitionerType" EntitySet="PractitionerType" />
+            <End Role="Tariff" EntitySet="Tariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_TariffBaseUnitCostID" Association="Self.FK_Medical_Tariff_TariffBaseUnitCostID">
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCost" />
+            <End Role="Tariff" EntitySet="Tariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_TariffTypeID" Association="Self.FK_Medical_Tariff_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffType" />
+            <End Role="Tariff" EntitySet="Tariff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_PublicationID" Association="Self.FK_Medical_TariffBaseUnitCost_PublicationID">
+            <End Role="Publication" EntitySet="Publication" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType" Association="Self.FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType">
+            <End Role="TariffBaseUnitCostType" EntitySet="TariffBaseUnitCostType" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_TariffTypeID" Association="Self.FK_Medical_TariffBaseUnitCost_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffType" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCost" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UmehlukoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MedicalItem">
+          <Key>
+            <PropertyRef Name="MedicalItemID" />
+          </Key>
+          <Property Name="MedicalItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TreatmentCodeID" Type="Int32" Nullable="false" />
+          <Property Name="NAPPICodeID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="MedicalItemTypeID" Type="Int32" Nullable="false" />
+          <Property Name="DefaultQuantity" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="MinServiceIntervalDays" Type="Decimal" Precision="7" Scale="2" />
+          <Property Name="AcuteMedicalAuthNeededTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ChronicMedicalAuthNeededTypeID" Type="Int32" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsAllowSameDayTreatment" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tariffs" Relationship="Self.FK_Medical_Tariff_MedicalItemID" FromRole="MedicalItem" ToRole="Tariff" />
+        </EntityType>
+        <EntityType Name="MedicalItemType">
+          <Key>
+            <PropertyRef Name="MedicalItemTypeID" />
+          </Key>
+          <Property Name="MedicalItemTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PractitionerType">
+          <Key>
+            <PropertyRef Name="PractitionerTypeID" />
+          </Key>
+          <Property Name="PractitionerTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="PracticeTypeCode" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="MaxTreatmentDays" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+          <Property Name="IsHospital" Type="Byte" Nullable="false" />
+          <Property Name="IsDentist" Type="Byte" Nullable="false" />
+          <Property Name="IsAmbulance" Type="Byte" Nullable="false" />
+          <Property Name="IsSpecialist" Type="Byte" Nullable="false" />
+          <Property Name="IsAnaesthetist" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="IsGP" Type="Byte" Nullable="false" />
+          <Property Name="NRPLPracticeType" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="Groupings" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="IsRequireMedReport" Type="Boolean" />
+          <NavigationProperty Name="Tariffs" Relationship="Self.FK_Medical_Tariff_PractitionerTypeID" FromRole="PractitionerType" ToRole="Tariff" />
+        </EntityType>
+        <EntityType Name="Tariff">
+          <Key>
+            <PropertyRef Name="TariffID" />
+          </Key>
+          <Property Name="TariffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValidFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TariffBaseUnitCostID" Type="Int32" Nullable="false" />
+          <Property Name="RecommendedUnits" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="VatCodeID" Type="Int32" Nullable="false" />
+          <Property Name="PractitionerTypeID" Type="Int32" Nullable="false" />
+          <Property Name="TariffTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MedicalItemID" Type="Int32" Nullable="false" />
+          <Property Name="SectionID" Type="Int32" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCopiedFromNRPL" Type="Boolean" />
+          <NavigationProperty Name="MedicalItem" Relationship="Self.FK_Medical_Tariff_MedicalItemID" FromRole="Tariff" ToRole="MedicalItem" />
+          <NavigationProperty Name="PractitionerType" Relationship="Self.FK_Medical_Tariff_PractitionerTypeID" FromRole="Tariff" ToRole="PractitionerType" />
+          <NavigationProperty Name="TariffBaseUnitCost" Relationship="Self.FK_Medical_Tariff_TariffBaseUnitCostID" FromRole="Tariff" ToRole="TariffBaseUnitCost" />
+          <NavigationProperty Name="TariffType" Relationship="Self.FK_Medical_Tariff_TariffTypeID" FromRole="Tariff" ToRole="TariffType" />
+        </EntityType>
+        <EntityType Name="TariffBaseUnitCost">
+          <Key>
+            <PropertyRef Name="TariffBaseUnitCostID" />
+          </Key>
+          <Property Name="TariffBaseUnitCostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="PublicationID" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UnitTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ValidFrom" Type="DateTime" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Precision="3" />
+          <Property Name="TariffTypeID" Type="Int32" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="TariffBaseUnitCostTypeId" Type="Int32" />
+          <Property Name="IsCopiedFromNRPL" Type="Boolean" />
+          <NavigationProperty Name="Tariffs" Relationship="Self.FK_Medical_Tariff_TariffBaseUnitCostID" FromRole="TariffBaseUnitCost" ToRole="Tariff" />
+          <NavigationProperty Name="TariffType" Relationship="Self.FK_Medical_TariffBaseUnitCost_TariffTypeID" FromRole="TariffBaseUnitCost" ToRole="TariffType" />
+          <NavigationProperty Name="Publication" Relationship="UmehlukoModel.FK_Medical_TariffBaseUnitCost_PublicationID" FromRole="TariffBaseUnitCost" ToRole="Publication" />
+          <NavigationProperty Name="TariffBaseUnitCostType" Relationship="UmehlukoModel.FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType" FromRole="TariffBaseUnitCost" ToRole="TariffBaseUnitCostType" />
+        </EntityType>
+        <EntityType Name="TariffType">
+          <Key>
+            <PropertyRef Name="TariffTypeID" />
+          </Key>
+          <Property Name="TariffTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="IsBaseType" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadDueDate" Type="DateTime" Precision="0" />
+          <Property Name="NotificationDays" Type="Int16" />
+          <NavigationProperty Name="Tariffs" Relationship="Self.FK_Medical_Tariff_TariffTypeID" FromRole="TariffType" ToRole="Tariff" />
+          <NavigationProperty Name="TariffBaseUnitCosts" Relationship="Self.FK_Medical_TariffBaseUnitCost_TariffTypeID" FromRole="TariffType" ToRole="TariffBaseUnitCost" />
+          <NavigationProperty Name="Publications" Relationship="UmehlukoModel.FK_Medical_Publication_TariffTypeID" FromRole="TariffType" ToRole="Publication" />
+        </EntityType>
+        <Association Name="FK_Medical_Tariff_MedicalItemID">
+          <End Role="MedicalItem" Type="Self.MedicalItem" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MedicalItem">
+              <PropertyRef Name="MedicalItemID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="MedicalItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_PractitionerTypeID">
+          <End Role="PractitionerType" Type="Self.PractitionerType" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PractitionerType">
+              <PropertyRef Name="PractitionerTypeID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="PractitionerTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_TariffBaseUnitCostID">
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffBaseUnitCostID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="TariffBaseUnitCostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_Tariff_TariffTypeID">
+          <End Role="TariffType" Type="Self.TariffType" Multiplicity="1" />
+          <End Role="Tariff" Type="Self.Tariff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="Tariff">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_TariffTypeID">
+          <End Role="TariffType" Type="Self.TariffType" Multiplicity="1" />
+          <End Role="TariffBaseUnitCost" Type="Self.TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UmehlukoEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MedicalItems" EntityType="Self.MedicalItem" />
+          <EntitySet Name="MedicalItemTypes" EntityType="Self.MedicalItemType" />
+          <EntitySet Name="PractitionerTypes" EntityType="Self.PractitionerType" />
+          <EntitySet Name="Tariffs" EntityType="Self.Tariff" />
+          <EntitySet Name="TariffBaseUnitCosts" EntityType="Self.TariffBaseUnitCost" />
+          <EntitySet Name="TariffTypes" EntityType="Self.TariffType" />
+          <AssociationSet Name="FK_Medical_Tariff_MedicalItemID" Association="Self.FK_Medical_Tariff_MedicalItemID">
+            <End Role="MedicalItem" EntitySet="MedicalItems" />
+            <End Role="Tariff" EntitySet="Tariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_PractitionerTypeID" Association="Self.FK_Medical_Tariff_PractitionerTypeID">
+            <End Role="PractitionerType" EntitySet="PractitionerTypes" />
+            <End Role="Tariff" EntitySet="Tariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_TariffBaseUnitCostID" Association="Self.FK_Medical_Tariff_TariffBaseUnitCostID">
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCosts" />
+            <End Role="Tariff" EntitySet="Tariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_Tariff_TariffTypeID" Association="Self.FK_Medical_Tariff_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffTypes" />
+            <End Role="Tariff" EntitySet="Tariffs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_TariffTypeID" Association="Self.FK_Medical_TariffBaseUnitCost_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffTypes" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCosts" />
+          </AssociationSet>
+          <EntitySet Name="Publications" EntityType="UmehlukoModel.Publication" />
+          <EntitySet Name="TariffBaseUnitCostTypes" EntityType="UmehlukoModel.TariffBaseUnitCostType" />
+          <AssociationSet Name="FK_Medical_Publication_TariffTypeID" Association="UmehlukoModel.FK_Medical_Publication_TariffTypeID">
+            <End Role="TariffType" EntitySet="TariffTypes" />
+            <End Role="Publication" EntitySet="Publications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_PublicationID" Association="UmehlukoModel.FK_Medical_TariffBaseUnitCost_PublicationID">
+            <End Role="Publication" EntitySet="Publications" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType" Association="UmehlukoModel.FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType">
+            <End Role="TariffBaseUnitCostType" EntitySet="TariffBaseUnitCostTypes" />
+            <End Role="TariffBaseUnitCost" EntitySet="TariffBaseUnitCosts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Publication">
+          <Key>
+            <PropertyRef Name="PublicationID" />
+          </Key>
+          <Property Name="PublicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PublicationNo" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="TariffTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ValidFrom" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ValidTo" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Byte" Nullable="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TariffType" Relationship="UmehlukoModel.FK_Medical_Publication_TariffTypeID" FromRole="Publication" ToRole="TariffType" />
+          <NavigationProperty Name="TariffBaseUnitCosts" Relationship="UmehlukoModel.FK_Medical_TariffBaseUnitCost_PublicationID" FromRole="Publication" ToRole="TariffBaseUnitCost" />
+        </EntityType>
+        <EntityType Name="TariffBaseUnitCostType">
+          <Key>
+            <PropertyRef Name="TariffBaseUnitCostTypeId" />
+          </Key>
+          <Property Name="TariffBaseUnitCostTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" />
+          <Property Name="LastChangedBy" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="LastChangedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TariffBaseUnitCosts" Relationship="UmehlukoModel.FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType" FromRole="TariffBaseUnitCostType" ToRole="TariffBaseUnitCost" />
+        </EntityType>
+        <Association Name="FK_Medical_Publication_TariffTypeID">
+          <End Type="UmehlukoModel.TariffType" Role="TariffType" Multiplicity="1" />
+          <End Type="UmehlukoModel.Publication" Role="Publication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffType">
+              <PropertyRef Name="TariffTypeID" />
+            </Principal>
+            <Dependent Role="Publication">
+              <PropertyRef Name="TariffTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_PublicationID">
+          <End Type="UmehlukoModel.Publication" Role="Publication" Multiplicity="1" />
+          <End Type="UmehlukoModel.TariffBaseUnitCost" Role="TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publication">
+              <PropertyRef Name="PublicationID" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="PublicationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Medical_TariffBaseUnitCost_TariffBaseUnitCostType">
+          <End Type="UmehlukoModel.TariffBaseUnitCostType" Role="TariffBaseUnitCostType" Multiplicity="0..1" />
+          <End Type="UmehlukoModel.TariffBaseUnitCost" Role="TariffBaseUnitCost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TariffBaseUnitCostType">
+              <PropertyRef Name="TariffBaseUnitCostTypeId" />
+            </Principal>
+            <Dependent Role="TariffBaseUnitCost">
+              <PropertyRef Name="TariffBaseUnitCostTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UmehlukoModelStoreContainer" CdmEntityContainer="UmehlukoEntities1">
+          <EntitySetMapping Name="MedicalItems">
+            <EntityTypeMapping TypeName="UmehlukoModel.MedicalItem">
+              <MappingFragment StoreEntitySet="MedicalItem">
+                <ScalarProperty Name="MedicalItemID" ColumnName="MedicalItemID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="TreatmentCodeID" ColumnName="TreatmentCodeID" />
+                <ScalarProperty Name="NAPPICodeID" ColumnName="NAPPICodeID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MedicalItemTypeID" ColumnName="MedicalItemTypeID" />
+                <ScalarProperty Name="DefaultQuantity" ColumnName="DefaultQuantity" />
+                <ScalarProperty Name="MinServiceIntervalDays" ColumnName="MinServiceIntervalDays" />
+                <ScalarProperty Name="AcuteMedicalAuthNeededTypeID" ColumnName="AcuteMedicalAuthNeededTypeID" />
+                <ScalarProperty Name="ChronicMedicalAuthNeededTypeID" ColumnName="ChronicMedicalAuthNeededTypeID" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="IsAllowSameDayTreatment" ColumnName="IsAllowSameDayTreatment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalItemTypes">
+            <EntityTypeMapping TypeName="UmehlukoModel.MedicalItemType">
+              <MappingFragment StoreEntitySet="MedicalItemType">
+                <ScalarProperty Name="MedicalItemTypeID" ColumnName="MedicalItemTypeID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PractitionerTypes">
+            <EntityTypeMapping TypeName="UmehlukoModel.PractitionerType">
+              <MappingFragment StoreEntitySet="PractitionerType">
+                <ScalarProperty Name="PractitionerTypeID" ColumnName="PractitionerTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PracticeTypeCode" ColumnName="PracticeTypeCode" />
+                <ScalarProperty Name="MaxTreatmentDays" ColumnName="MaxTreatmentDays" />
+                <ScalarProperty Name="IsHospital" ColumnName="IsHospital" />
+                <ScalarProperty Name="IsDentist" ColumnName="IsDentist" />
+                <ScalarProperty Name="IsAmbulance" ColumnName="IsAmbulance" />
+                <ScalarProperty Name="IsSpecialist" ColumnName="IsSpecialist" />
+                <ScalarProperty Name="IsAnaesthetist" ColumnName="IsAnaesthetist" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsGP" ColumnName="IsGP" />
+                <ScalarProperty Name="NRPLPracticeType" ColumnName="NRPLPracticeType" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="Groupings" ColumnName="Groupings" />
+                <ScalarProperty Name="IsRequireMedReport" ColumnName="IsRequireMedReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tariffs">
+            <EntityTypeMapping TypeName="UmehlukoModel.Tariff">
+              <MappingFragment StoreEntitySet="Tariff">
+                <ScalarProperty Name="TariffID" ColumnName="TariffID" />
+                <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+                <ScalarProperty Name="TariffBaseUnitCostID" ColumnName="TariffBaseUnitCostID" />
+                <ScalarProperty Name="RecommendedUnits" ColumnName="RecommendedUnits" />
+                <ScalarProperty Name="VatCodeID" ColumnName="VatCodeID" />
+                <ScalarProperty Name="PractitionerTypeID" ColumnName="PractitionerTypeID" />
+                <ScalarProperty Name="TariffTypeID" ColumnName="TariffTypeID" />
+                <ScalarProperty Name="MedicalItemID" ColumnName="MedicalItemID" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="IsCopiedFromNRPL" ColumnName="IsCopiedFromNRPL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TariffBaseUnitCosts">
+            <EntityTypeMapping TypeName="UmehlukoModel.TariffBaseUnitCost">
+              <MappingFragment StoreEntitySet="TariffBaseUnitCost">
+                <ScalarProperty Name="TariffBaseUnitCostID" ColumnName="TariffBaseUnitCostID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PublicationID" ColumnName="PublicationID" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="UnitTypeID" ColumnName="UnitTypeID" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+                <ScalarProperty Name="TariffTypeID" ColumnName="TariffTypeID" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="TariffBaseUnitCostTypeId" ColumnName="TariffBaseUnitCostTypeId" />
+                <ScalarProperty Name="IsCopiedFromNRPL" ColumnName="IsCopiedFromNRPL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TariffTypes">
+            <EntityTypeMapping TypeName="UmehlukoModel.TariffType">
+              <MappingFragment StoreEntitySet="TariffType">
+                <ScalarProperty Name="TariffTypeID" ColumnName="TariffTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsBaseType" ColumnName="IsBaseType" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="UploadDueDate" ColumnName="UploadDueDate" />
+                <ScalarProperty Name="NotificationDays" ColumnName="NotificationDays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publications">
+            <EntityTypeMapping TypeName="UmehlukoModel.Publication">
+              <MappingFragment StoreEntitySet="Publication">
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ValidTo" ColumnName="ValidTo" />
+                <ScalarProperty Name="ValidFrom" ColumnName="ValidFrom" />
+                <ScalarProperty Name="TariffTypeID" ColumnName="TariffTypeID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PublicationNo" ColumnName="PublicationNo" />
+                <ScalarProperty Name="PublicationID" ColumnName="PublicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TariffBaseUnitCostTypes">
+            <EntityTypeMapping TypeName="UmehlukoModel.TariffBaseUnitCostType">
+              <MappingFragment StoreEntitySet="TariffBaseUnitCostType">
+                <ScalarProperty Name="LastChangedDate" ColumnName="LastChangedDate" />
+                <ScalarProperty Name="LastChangedBy" ColumnName="LastChangedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TariffBaseUnitCostTypeId" ColumnName="TariffBaseUnitCostTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿<Controls:MetroWindow x:Class="Umehluko.Tools.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:views="clr-namespace:Umehluko.Tools.UI.Views"
+                      xmlns:benMvvm="clr-namespace:BenMVVM;assembly=BenMVVM"
+                      Title="Umehluko Tool"
+        Height="600" 
+        Width="800"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainPageViewModel}">
+
+    <!--<TabControl ItemsSource="{Binding Workspaces}"
+            IsSynchronizedWithCurrentItem="True">
+        <TabControl.ItemTemplate>
+            <DataTemplate>
+                <Label Content="{Binding DisplayName}" />
+            </DataTemplate>
+        </TabControl.ItemTemplate>
+    </TabControl>-->
+    <TabControl HorizontalAlignment="Stretch"
+                benMvvm:EventCommand.Command="{Binding SelectedTabChangedCommnad}"
+                benMvvm:EventCommand.OnEvent="SelectionChanged">
+
+        <!--Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type toolkit:DataGrid}},
+                                                            Path=DataContext.RemoveCommand}"
+                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self},
+                                                            Path=DataContext}"-->
+        <TabItem Header="Tariffs">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=BannerText}" FontFamily="Verdana" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+                <views:TarrifManagementView DataContext="{Binding ChildViewModel}" VerticalAlignment ="Stretch" HorizontalAlignment="Stretch" x:Name="TabContent1" />
+                <!--<views:TarrifManagementView  VerticalAlignment ="Stretch" HorizontalAlignment="Stretch" />
+                <TextBlock Text="Mememem" Visibility="{Binding ElementName=TabContent1, Path=IsBusy, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, Mode=TwoWay}"  />-->
+            </StackPanel>
+        </TabItem>
+        <TabItem Header="Payment on Hold" />
+        <TabItem Header="Validation" />
+    </TabControl>
+    <!--<StackPanel>
+        <TextBlock Text="{Binding Path=BannerText}" FontFamily="Verdana" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10" />
+        <my:CustomerView />
+    </StackPanel>-->
+</Controls:MetroWindow>
