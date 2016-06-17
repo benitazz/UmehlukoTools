@@ -30,13 +30,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\..\Users\bbaloyi\Documents\Visual Studio 2013\Projects\LoadTarrifs\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constant.cs" />
@@ -45,10 +58,29 @@
     <Compile Include="Common\TariffTypeCommonConstant.cs" />
     <Compile Include="Extensions\DateTimeExtenstion.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="ExceptionMessage\ExceptionMessageBox.cs" />
+    <Compile Include="ExceptionMessage\ExceptionMessageBoxView.xaml.cs">
+      <DependentUpon>ExceptionMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionMessage\ExceptionMessageBoxViewModel.cs" />
+    <Compile Include="ExceptionMessage\IExceptionMessageBoxView.cs" />
+    <Compile Include="Extensions\ExceptionExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Extensions\FileExtension.cs" />
     <Compile Include="Extensions\IsNumericExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="ExceptionMessage\ExceptionMessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Images\error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
