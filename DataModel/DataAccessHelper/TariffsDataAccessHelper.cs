@@ -69,9 +69,6 @@ namespace Umehluko.Tools.DataModel.DataAccessHelper
                    select medicalItem;
         }
 
-
-       
-
         /// <summary>
         /// The dispose.
         /// </summary>
